@@ -1,0 +1,44 @@
+[
+  {
+    "_id": "12345",
+    "name": "Shari Nault Pullar",
+    "email": "shari@gmail.com",
+    "assignments": [
+      {
+        "assignedOn": "2021-10-4",
+        "reviewedOn": "2021-10-5",
+        "event": { "_id": "asdf345", "name": "Fall Book Festival" },
+        "book": {
+          "title": "The Gardener's universe",
+          "genres": ["Photography", "Art", "Nature"]
+        },
+        "review": [
+          { "character-development": 7 },
+          { "story": 8 },
+          { "first-impression": "I really liked it" }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Holly Soriano",
+    "email": "sorianopictures@gmail.com",
+    "assignments": [
+      {
+        "assignedOn": "2021-10-6",
+        "reviewedOn": "2021-10-21",
+        "book": {
+          "title": "Howl: A look at the Big Bad Wolf",
+          "genres": ["nature", "Children", "Art"]
+        },
+        "review": [
+          { "character-development": 4 },
+          { "story": 5 },
+          {
+            "first-impression": "Engaging at first, but wasn't sure where it was goin"
+          }
+        ]
+      }
+    ]
+  }
+]
