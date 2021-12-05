@@ -1,0 +1,22 @@
+[
+  {
+    "_id": "2001",
+    "title": "Dark Matters",
+    "categories": ["First Book", "Art & Photography"]
+  },
+  {
+    "_id": "2002",
+    "title": "Light Matters",
+    "categories": ["Childrens", "Fiction"]
+  },
+  {
+    "_id": "2003",
+    "title": "In 50 years, we'll all be chicks",
+    "categories": ["Fiction", "First Book", "Childrens"]
+  },
+  {
+    "_id": "2003",
+    "title": "Some other book",
+    "categories": ["Fiction", "First Book", "Childrens"]
+  }
+]

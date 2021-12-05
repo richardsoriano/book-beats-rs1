@@ -1,15 +1,11 @@
-import SelectField from '@/ui/select-field'
 import MultiSelectField from '@/ui/multi-select-field'
 
 export default function Filters({
-  setFilteredStatus,
-  filteredStatus,
-  setFilteredGenres,
-  filteredGenres,
   setQuery,
   query,
-  statuses,
-  genres,
+  setFilteredCategories,
+  filteredCategories,
+  categories,
 }) {
   return (
     <div className='w-full border my-4 p-8'>
@@ -18,9 +14,8 @@ export default function Filters({
           <button
             className='border py-1 px-6 rounded text-xs bg-blue-100 border-blue-400 my-3'
             onClick={() => {
-              setFilteredStatus(statuses[0])
-              setFilteredGenres([])
               setQuery('')
+              setFilteredCategories([])
             }}
           >
             Reset
@@ -39,19 +34,11 @@ export default function Filters({
 
       <div className='w-full flex items-center space-x-10'>
         <div className='w-64'>
-          <SelectField
-            label='Filter by status'
-            value={filteredStatus}
-            options={statuses}
-            onChange={(status) => setFilteredStatus(status)}
-          />
-        </div>
-        <div className='w-64'>
           <MultiSelectField
-            label='Filter by any matching genre'
-            value={filteredGenres}
-            options={genres}
-            onChange={(genres) => setFilteredGenres(genres)}
+            label='Filter by any matching category'
+            value={filteredCategories}
+            options={categories}
+            onChange={(categories) => setFilteredCategories(categories)}
           />
         </div>
       </div>
