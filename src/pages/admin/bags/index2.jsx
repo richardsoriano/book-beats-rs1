@@ -1,7 +1,9 @@
 import dbPromise, { jsonify } from '@/modules/mongodb'
 import Table from '@/ui/table'
+import { useState } from 'react'
 
 export default function AdminBags({ bags }) {
+  const [showModal, setShowModal] = useState(undefined)
   return (
     <Table
       columns={[

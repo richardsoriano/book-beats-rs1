@@ -6,7 +6,7 @@ export default function BookAssignmentResults({
   bookAssignments,
   query,
   filteredStatus,
-  filteredGenres,
+  filteredCategories,
   statuses,
 }) {
   const [sortableColumn, setSortableColumn] = useState(undefined)
@@ -16,7 +16,7 @@ export default function BookAssignmentResults({
   const columns = [
     { heading: 'Title', sortColumn: 'title' },
     { heading: 'Round', sortColumn: 'round' },
-    { heading: 'Genres', sortColumn: 'genres' },
+    { heading: 'Categories', sortColumn: 'categories' },
     { heading: 'Assigned', sortColumn: 'assignedCount' },
     { heading: 'Completed', sortColumn: 'reviewedCount' },
     { heading: 'Status', sortColumn: 'status' },
@@ -24,7 +24,7 @@ export default function BookAssignmentResults({
   useEffect((sortableColumn) => {
     if (!sortableColumn) return
   }, [])
-
+  console.log('book', bookAssignments)
   function sort(assignments) {
     if (!sortableColumn) return assignments
 
@@ -62,14 +62,14 @@ export default function BookAssignmentResults({
           filter(
             search(bookAssignments, query),
             filteredStatus,
-            filteredGenres,
+            filteredCategories,
             statuses
           )
         ).map((bookAssignment) => (
           <tr>
             <td>{bookAssignment.title}</td>
             <td>{bookAssignment.round}</td>
-            <td>{bookAssignment.genres.join(',')}</td>
+            <td>{bookAssignment.categories.join(',')}</td>
             <td>{bookAssignment.assignedCount}</td>
             <td>{bookAssignment.reviewedCount}</td>
             <td>{bookAssignment.status} </td>

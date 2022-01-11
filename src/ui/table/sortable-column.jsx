@@ -8,13 +8,8 @@ export default function SortableColumn({
   sortableDirection,
 }) {
   return (
-    <th
-      className={`${className} ${sort ? ' underline' : ''}`}
-      onClick={() => {
-        setSort(true)
-      }}
-    >
-      <div className='flex items-center'>
+    <th onClick={setSort}>
+      <div className='flex space-x-1 items-center'>
         <div>{children}</div>
         <div className='w-4'>
           {sort &&

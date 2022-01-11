@@ -14,30 +14,20 @@ export default function SelectField({
 
   return (
     <div className='relative w-full' ref={ref}>
-      {label && (
-        <label
-          onClick={() => {
-            setOpen(true)
-          }}
-        >
-          {label}
-        </label>
-      )}
-
+      {label && <label onClick={() => setOpen(true)}>{label}</label>}
       <div
         className='border p-2 w-full'
         onClick={() => setOpen((prev) => !prev)}
       >
         {value}
       </div>
+
       <div
-        className={`border p-2 w-full mt-1 absolute ${
-          open ? 'block' : 'hidden'
-        }`}
+        className={`absolute border w-full mt-1 ${open ? 'block' : 'hidden'}`}
       >
         {options.map((option) => (
           <div
-            className='bg-white'
+            className='bg-white p-2'
             onClick={() => {
               onChange(option)
               setOpen(false)

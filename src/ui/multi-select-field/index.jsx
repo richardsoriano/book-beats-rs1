@@ -4,7 +4,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid'
 
 export default function MultiSelectField({
   label,
-  value,
+  value = [],
   options = [],
   onChange = () => {},
   renderOption = (option) => option,
@@ -13,7 +13,7 @@ export default function MultiSelectField({
 
   const ref = useRef()
   useClickOutside(ref, () => setOpen(false))
-
+  console.dir('value=', value)
   return (
     <div className='relative w-full' ref={ref}>
       {label && (

@@ -4,7 +4,6 @@ import books from '@/data/books'
 
 import TextField from 'ui/text-field'
 import SelectField from 'ui/select-field'
-import MultiSelectField from 'ui/multi-select-field'
 
 import { uniq } from '@/modules/array'
 
@@ -23,7 +22,7 @@ function Button({ children, onClick = () => {} }) {
     </button>
   )
 }
-export default function BagPage({ readers, books }) {
+export default function BagPage({ books }) {
   const [currentStep, setCurrentStep] = useState('start')
   const [bag, setBag] = useState({
     name: '',

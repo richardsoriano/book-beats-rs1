@@ -6,15 +6,15 @@ import BookAssignmentResults from 'features/admin/books/assignments/results'
 const statuses = ['Any', 'Completed', 'In progress']
 
 export default function AdminBooksAssignments({ bookAssignments = [] }) {
-  const genres = uniq(
+  const categories = uniq(
     bookAssignments.reduce((acc, assignment) => {
-      return [...acc, ...assignment.genres]
+      return [...acc, ...assignment.categories]
     }, [])
   )
 
   const [query, setQuery] = useState('')
   const [filteredStatus, setFilteredStatus] = useState(statuses[0])
-  const [filteredGenres, setFilteredGenres] = useState([])
+  const [filteredCategories, setFilteredCategories] = useState([])
 
   return (
     <div>
@@ -22,18 +22,18 @@ export default function AdminBooksAssignments({ bookAssignments = [] }) {
       <Filters
         setFilteredStatus={setFilteredStatus}
         filteredStatus={filteredStatus}
-        setFilteredGenres={setFilteredGenres}
-        filteredGenres={filteredGenres}
+        setFilteredCategories={setFilteredCategories}
+        filteredCategories={filteredCategories}
         setQuery={setQuery}
         query={query}
         statuses={statuses}
-        genres={genres}
+        categories={categories}
       />
       <BookAssignmentResults
         bookAssignments={bookAssignments}
         query={query}
         filteredStatus={filteredStatus}
-        filteredGenres={filteredGenres}
+        filteredCategories={filteredCategories}
         statuses={statuses}
       />
     </div>

@@ -1,22 +1,30 @@
-export function filter(assignments, filteredStatus, filteredGenres, statuses) {
+export function filter(
+  assignments,
+  filteredStatus,
+  filteredCategories,
+  statuses
+) {
   return assignments.filter(
     (assignment) =>
       filterByStatus(assignment, filteredStatus, statuses) &&
-      filterByGenres(assignment, filteredGenres)
+      filterByCategories(assignment, filteredCategories)
   )
 }
 
 export function search(assignments, query) {
   if (query.length < 3) return assignments
-  return assignments.filter((assignment) => searchTitle(assignment, query))
+  return assignments.filter(
+    (assignment) =>
+      searchTitle(assignment, query) || searchCategory(assignment, query)
+  )
 }
 function searchTitle(assignment, query) {
   return assignment.title.toLowerCase().includes(query.toLowerCase())
 }
 
-function searchGenres(assignment, query) {
+function searchCategory(assignment, query) {
   return (
-    assignment.genres.filter((genre) =>
+    assignment.categories.filter((genre) =>
       genre.toLowerCase().includes(query.toLowerCase())
     ).length > 0
   )
@@ -27,11 +35,11 @@ function filterByStatus(assignment, filteredStatus, statuses) {
   return compareCaseInsensitive(assignment.status, filteredStatus)
 }
 
-function filterByGenres(assignment, filteredGenres) {
-  console.dir(filteredGenres)
-  console.log('f Genres')
-  if (filteredGenres.length === 0) return true
-  return assignment.genres.some((genre) => filteredGenres.includes(genre))
+function filterByCategories(assignment, filteredCategories) {
+  if (filteredCategories.length === 0) return true
+  return assignment.categories.some((category) =>
+    filteredCategories.includes(category)
+  )
 }
 
 function compareCaseInsensitive(a, b) {

@@ -4,12 +4,12 @@ import MultiSelectField from '@/ui/multi-select-field'
 export default function Filters({
   setFilteredStatus,
   filteredStatus,
-  setFilteredGenres,
-  filteredGenres,
+  setFilteredCategories,
+  filteredCategories,
   setQuery,
   query,
   statuses,
-  genres,
+  categories,
 }) {
   return (
     <div className='w-full border my-4 p-8'>
@@ -19,7 +19,7 @@ export default function Filters({
             className='border py-1 px-6 rounded text-xs bg-blue-100 border-blue-400 my-3'
             onClick={() => {
               setFilteredStatus(statuses[0])
-              setFilteredGenres([])
+              setFilteredCategories([])
               setQuery('')
             }}
           >
@@ -49,9 +49,9 @@ export default function Filters({
         <div className='w-64'>
           <MultiSelectField
             label='Filter by any matching genre'
-            value={filteredGenres}
-            options={genres}
-            onChange={(genres) => setFilteredGenres(genres)}
+            value={filteredCategories}
+            options={categories}
+            onChange={(categories) => setFilteredCategories(categories)}
           />
         </div>
       </div>
