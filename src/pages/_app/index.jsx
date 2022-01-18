@@ -1,11 +1,10 @@
+import Layout from '@/features/layout'
 import './globals.css'
 
 export default function App({ Component, pageProps }) {
   return (
-    <div className='container mx-auto'>
-      <header>headsd</header>
+    <Layout>
       <Component {...pageProps} />
-      <footer>foot</footer>
-    </div>
+    </Layout>
   )
 }
