@@ -1,7 +1,13 @@
-export default function Homepage() {
+import Page from '@/ui/page'
+export default function LandingPage() {
   return (
     <div className='mt-16 container mx-auto'>
-      <h1>Hello world. BB</h1>
+      <Page
+        title='Welcome to Book Beats'
+        description='This is to assist the administrator in the Montana Book Clubs'
+      >
+        <h1>Welcome to Book Beats</h1>
+      </Page>
     </div>
   )
 }

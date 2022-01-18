@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { uniq } from '@/modules/array'
 import Filters from './filters'
 import BookAssignmentResults from 'features/admin/books/assignments/results'
-
+import TextField from 'ui/text-field'
 const statuses = ['Any', 'Completed', 'In progress']
 
 export default function AdminBooksAssignments({ bookAssignments = [] }) {
@@ -15,6 +15,13 @@ export default function AdminBooksAssignments({ bookAssignments = [] }) {
   const [query, setQuery] = useState('')
   const [filteredStatus, setFilteredStatus] = useState(statuses[0])
   const [filteredCategories, setFilteredCategories] = useState([])
+  const [book, setBook] = useState({
+    title: '',
+    author: '',
+    year: '',
+    dateOfPublishing: '',
+    categories: [],
+  })
 
   return (
     <div>
@@ -36,6 +43,31 @@ export default function AdminBooksAssignments({ bookAssignments = [] }) {
         filteredCategories={filteredCategories}
         statuses={statuses}
       />
+      <div className='py-6'>
+        <h2 className='text-blue-400 text-4xl'>Add a Book</h2>
+        <TextField
+          label='Title'
+          value={book.title}
+          onChange={(title) => setBook((prev) => ({ ...prev, title }))}
+        />
+        <TextField
+          label='Author'
+          value={book.author}
+          onChange={(author) => setBook((prev) => ({ ...prev, author }))}
+        />
+        <TextField
+          label='Year'
+          value={book.year}
+          onChange={(year) => setBook((prev) => ({ ...prev, year }))}
+        />
+        <TextField
+          label='Date Of Publishing'
+          value={book.dateOfPublishing}
+          onChange={(dateOfPublishing) =>
+            setBook((prev) => ({ ...prev, dateOfPublishing }))
+          }
+        />
+      </div>
     </div>
   )
 }
