@@ -2,34 +2,29 @@ import { useState, useEffect } from 'react'
 import { search, filter } from './helpers'
 import SortableColumn from './sortable-column'
 
-export default function BookAssignmentResults({
-  bookAssignments,
+export default function ReaderInviteeResults({
+  readers,
   query,
-  filteredStatus,
   filteredCategories,
-  statuses,
 }) {
   const [sortableColumn, setSortableColumn] = useState(undefined)
   const [sortableDirection, setSortableDirection] = useState(undefined)
 
   const thClassNames = 'text-left font-bold border-b-2'
   const columns = [
-    { heading: 'Title', sortColumn: 'title' },
-    { heading: 'Round', sortColumn: 'round' },
+    { heading: 'Reader', sortColumn: 'name' },
+    { heading: 'Email', sortColumn: 'email' },
+    { heading: 'Role', sortColumn: 'role' },
     { heading: 'Categories', sortColumn: 'categories' },
-    { heading: 'Assigned', sortColumn: 'assignedCount' },
-    { heading: 'Completed', sortColumn: 'reviewedCount' },
-    { heading: 'Status', sortColumn: 'status' },
   ]
   useEffect((sortableColumn) => {
     if (!sortableColumn) return
   }, [])
-  console.log('book', bookAssignments)
 
-  function sort(assignments) {
-    if (!sortableColumn) return assignments
+  function sort(invitees) {
+    if (!sortableColumn) return invitees
 
-    return assignments.sort((a, b) => {
+    return invitees.sort((a, b) => {
       if (a[sortableColumn] > b[sortableColumn])
         return sortableDirection === 'asc' ? 1 : -1
       if (a[sortableColumn] < b[sortableColumn])
@@ -59,23 +54,16 @@ export default function BookAssignmentResults({
         </tr>
       </thead>
       <tbody>
-        {sort(
-          filter(
-            search(bookAssignments, query),
-            filteredStatus,
-            filteredCategories,
-            statuses
+        {sort(filter(search(readers, query), filteredCategories)).map(
+          (reader) => (
+            <tr>
+              <td>{reader.name}</td>
+              <td>{reader.email}</td>
+              <td>{reader.role.join(', ')}</td>
+              <td>{reader.categories.join(',')}</td>
+            </tr>
           )
-        ).map((bookAssignment) => (
-          <tr>
-            <td>{bookAssignment.title}</td>
-            <td>{bookAssignment.round}</td>
-            <td>{bookAssignment.categories.join(',')}</td>
-            <td>{bookAssignment.assignedCount}</td>
-            <td>{bookAssignment.reviewedCount}</td>
-            <td>{bookAssignment.status} </td>
-          </tr>
-        ))}
+        )}
       </tbody>
     </table>
   )
