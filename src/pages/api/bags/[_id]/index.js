@@ -5,16 +5,18 @@ import connect from 'next-connect'
 const handler = connect()
 
 async function saveBag(req, res) {
-  const { _id, name, category, books } = JSON.parse(req.body)
+  const { _id, name, category, books, reader, pickupStatus } = JSON.parse(
+    req.body
+  )
   const dbConnection = await dbPromise
   const collection = await dbConnection.db().collection('bags')
-  console.log('save Bag', name)
+  console.log('save Bag', books)
   const dbRes = await collection.updateOne(
     { _id: ObjectId(_id) },
-    { $set: { name, category, books } }
+    { $set: { name, category, books, reader, pickupStatus } }
   )
 
-  res.status(200).json({ _id, name, category, books })
+  res.status(200).json({ _id, name, category, books, reader, pickupStatus })
 }
 
 handler.patch((req, res) => saveBag(req, res))

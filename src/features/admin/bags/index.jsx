@@ -29,6 +29,8 @@ export default function AdminBags({ bags, books, readerAssignments }) {
       _id: bagToDelete._id,
       name: '',
       category: undefined,
+      reader: '',
+      pickupStatus: undefined,
       books: [],
     }
     const res = await fetch(`/api/bags/${bagToDelete._id}`, {
@@ -38,6 +40,7 @@ export default function AdminBags({ bags, books, readerAssignments }) {
     setBags((prev) => prev.filter((_bag) => _bag._id !== bagToDelete._id))
   }
   console.log('reader assignments:', readerAssignments)
+  console.log('bags', bags)
   const readers = readerAssignments.map(
     (readerAssignment) => readerAssignment.reader
   )
@@ -49,6 +52,8 @@ export default function AdminBags({ bags, books, readerAssignments }) {
           { heading: 'Name', sortable: 'name' },
           { heading: 'Category', sortable: 'category' },
           { heading: 'Num Books', sortable: 'numBooks' },
+          { heading: 'Reader', sortable: 'reader' },
+          { heading: 'Status', sortable: 'pickupStatus' },
           { heading: 'Delete', sortable: false },
         ]}
         rows={_bags}
@@ -66,6 +71,8 @@ export default function AdminBags({ bags, books, readerAssignments }) {
               <td {...tdProps}>{bag.name}</td>
               <td {...tdProps}>{bag.category}</td>
               <td {...tdProps}>{bag.numBooks}</td>
+              <td {...tdProps}>{bag.reader}</td>
+              <td {...tdProps}>{bag.pickupStatus}</td>
               <td {...tdDel}>{<XIcon className='w-5 h-5 text-red-500' />}</td>
             </tr>
           )
