@@ -1,7 +1,7 @@
 import dbPromise from '@/modules/mongodb'
 
 export default async function CreateBag(req, res) {
-  const { name, category, books } = JSON.parse(req.body)
+  const { name, category, books, reader, pickupStatus } = JSON.parse(req.body)
   console.log('create', name)
 
   const dbConnection = await dbPromise
@@ -13,14 +13,12 @@ export default async function CreateBag(req, res) {
     reader,
     pickupStatus,
   })
-  res
-    .status(201)
-    .json({
-      _id: insertedId.toString(),
-      name,
-      category,
-      books,
-      reader,
-      pickupStatus,
-    })
+  res.status(201).json({
+    _id: insertedId.toString(),
+    name,
+    category,
+    books,
+    reader,
+    pickupStatus,
+  })
 }
