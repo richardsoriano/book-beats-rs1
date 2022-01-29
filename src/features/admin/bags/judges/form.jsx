@@ -5,8 +5,6 @@ import { uniq } from '@/modules/array'
 import NameBag from './steps/nameBag'
 import AttachCategory from './steps/attachCategory'
 import BagBooks from './steps/bagBooks'
-import AssignReader from './steps/assignReader'
-import AssignStatus from './steps/assignStatus'
 
 const categories = uniq(
   books.reduce((acc, assignment) => {
@@ -24,19 +22,15 @@ function Button({ children, onClick = () => {} }) {
   )
 }
 
-export default function BagForm({
+export default function BagJudgeForm({
   books,
   bagProps,
   bags,
-  readers,
-  pickupStatus,
   setBags = () => {},
   setSelectedBag = () => {},
 }) {
   const [currentStep, setCurrentStep] = useState(0)
   const [bag, setBag] = useState(bagProps)
-  console.log('readerAssigs', readers)
-
   const steps = [
     {
       component: <NameBag bag={bag} setBag={setBag} />,
@@ -51,16 +45,6 @@ export default function BagForm({
     {
       component: <BagBooks books={books} bag={bag} setBag={setBag} />,
       label: 'Bag Books',
-    },
-    {
-      component: <AssignReader readers={readers} bag={bag} setBag={setBag} />,
-      label: 'Assign Reader',
-    },
-    {
-      component: (
-        <AssignStatus pickupStatus={pickupStatus} bag={bag} setBag={setBag} />
-      ),
-      label: 'Assign Status',
     },
   ]
 

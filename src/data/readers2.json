@@ -29,7 +29,7 @@
         "reviewedOn": "2021-10-21",
         "book": {
           "title": "Howl: A look at the Big Bad Wolf",
-          "genres": ["nature", "Children", "Art"]
+          "genres": ["Nature", "Children", "Art"]
         },
         "review": [
           { "character-development": 4 },

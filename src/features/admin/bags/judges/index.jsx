@@ -1,9 +1,12 @@
 import { useState } from 'react'
+import BookScoreResults from './bookScoreResults'
+import Filters from './bookScoreResults/filters'
+import categories from '@/data/categories'
 
 import Table from '@/ui/table'
 import Modal from '@/ui/modal'
 import Button from '@/ui/button'
-import BagForm from './form'
+import BagJudgeForm from './form'
 import { XIcon } from '@heroicons/react/solid'
 
 const newBag = {
@@ -11,15 +14,14 @@ const newBag = {
   name: '',
   category: undefined,
   books: [],
-  reader: undefined,
-  pickupStatus: undefined,
 }
 
-export default function AdminBags({ bags, books, readerAssignments }) {
+export default function AdminBagsJudges({ bags = [], books = [] }) {
   const [_bags, setBags] = useState(bags)
   const [selectedBag, setSelectedBag] = useState(undefined)
   const [bagToDelete, setBagToDelete] = useState(undefined)
-  const pickupStatus = ['needs pickup', 'picked up', 'returned']
+  const [filteredCategories, setFilteredCategories] = useState([])
+
   function deleteBag(bag) {
     setBagToDelete(bag)
   }
@@ -37,18 +39,28 @@ export default function AdminBags({ bags, books, readerAssignments }) {
     })
     setBags((prev) => prev.filter((_bag) => _bag._id !== bagToDelete._id))
   }
-  console.log('reader assignments:', readerAssignments)
-  const readers = readerAssignments.map(
-    (readerAssignment) => readerAssignment.reader
-  )
+
   return (
     <>
+      <h1 className='text-2xl font-bold'>Book Scores</h1>
+      <Filters
+        setFilteredCategories={setFilteredCategories}
+        filteredCategories={filteredCategories}
+        categories={categories}
+      />
+      <BookScoreResults books={books} filteredCategories={filteredCategories} />
+      <div className='mb-4 mt-4 border-1 bg-blue-100'>
+        <p>&nbsp;</p>
+      </div>
+      <h1 className='text-2xl font-bold'>Bags for Judges</h1>
       <Button onClick={() => setSelectedBag(newBag)}>New Bag</Button>
       <Table
         columns={[
           { heading: 'Name', sortable: 'name' },
           { heading: 'Category', sortable: 'category' },
-          { heading: 'Num Books', sortable: 'numBooks' },
+          { heading: 'Books', sortable: 'books' },
+          { heading: 'Judges', sortable: 'judges' },
+          { heading: 'Status', sortable: 'status' },
           { heading: 'Delete', sortable: false },
         ]}
         rows={_bags}
@@ -65,7 +77,9 @@ export default function AdminBags({ bags, books, readerAssignments }) {
             <tr>
               <td {...tdProps}>{bag.name}</td>
               <td {...tdProps}>{bag.category}</td>
-              <td {...tdProps}>{bag.numBooks}</td>
+              <td {...tdProps}>{bag.books.join(', ')}</td>
+              <td {...tdProps}>{bag.assigned}</td>
+              <td {...tdProps}>{bag.status}</td>
               <td {...tdDel}>{<XIcon className='w-5 h-5 text-red-500' />}</td>
             </tr>
           )
@@ -73,12 +87,10 @@ export default function AdminBags({ bags, books, readerAssignments }) {
       />
       {selectedBag && (
         <Modal open={true} close={() => setSelectedBag(undefined)}>
-          <BagForm
+          <BagJudgeForm
             books={books}
             bagProps={selectedBag}
             bags={_bags}
-            readers={readers}
-            pickupStatus={pickupStatus}
             setBags={setBags}
             setSelectedBag={setSelectedBag}
           />
