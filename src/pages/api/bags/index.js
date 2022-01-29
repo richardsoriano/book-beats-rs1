@@ -6,6 +6,21 @@ export default async function CreateBag(req, res) {
 
   const dbConnection = await dbPromise
   const collection = await dbConnection.db().collection('bags')
-  const { insertedId } = await collection.insertOne({ name, category, books })
-  res.status(201).json({ _id: insertedId.toString(), name, category, books })
+  const { insertedId } = await collection.insertOne({
+    name,
+    category,
+    books,
+    reader,
+    pickupStatus,
+  })
+  res
+    .status(201)
+    .json({
+      _id: insertedId.toString(),
+      name,
+      category,
+      books,
+      reader,
+      pickupStatus,
+    })
 }

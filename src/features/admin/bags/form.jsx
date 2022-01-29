@@ -67,6 +67,7 @@ export default function BagForm({
   async function saveBag() {
     const bagId = bag._id ? bag._id : ''
     let newBag
+
     const res = await fetch(`/api/bags/${bagId}`, {
       method: bagId ? 'PATCH' : 'POST',
       body: JSON.stringify(bag),
@@ -80,6 +81,8 @@ export default function BagForm({
           category: data.category,
           books: data.books,
           numBooks: bag.books.length,
+          reader: data.reader,
+          pickupStatus: data.pickupStatus,
         }
       })
     if (bagId !== '') {
