@@ -14,13 +14,21 @@ const newBag = {
   name: '',
   category: undefined,
   books: [],
+  assigned: [],
+  pickupStatus: '',
 }
 
-export default function AdminBagsJudges({ bags = [], books = [] }) {
+export default function AdminBagsJudges({
+  bags = [],
+  books = [],
+  readers = [],
+  judgeAssignments = [],
+}) {
   const [_bags, setBags] = useState(bags)
   const [selectedBag, setSelectedBag] = useState(undefined)
   const [bagToDelete, setBagToDelete] = useState(undefined)
   const [filteredCategories, setFilteredCategories] = useState([])
+  const pickupStatuses = ['needs pickup', 'picked up', 'returned']
 
   function deleteBag(bag) {
     setBagToDelete(bag)
@@ -32,6 +40,8 @@ export default function AdminBagsJudges({ bags = [], books = [] }) {
       name: '',
       category: undefined,
       books: [],
+      assigned: [],
+      pickupStatus: '',
     }
     const res = await fetch(`/api/bags/${bagToDelete._id}`, {
       method: 'DELETE',
@@ -39,7 +49,7 @@ export default function AdminBagsJudges({ bags = [], books = [] }) {
     })
     setBags((prev) => prev.filter((_bag) => _bag._id !== bagToDelete._id))
   }
-
+  console.log('judges=', judgeAssignments)
   return (
     <>
       <h1 className='text-2xl font-bold'>Book Scores</h1>
@@ -79,12 +89,13 @@ export default function AdminBagsJudges({ bags = [], books = [] }) {
               <td {...tdProps}>{bag.category}</td>
               <td {...tdProps}>{bag.books.join(', ')}</td>
               <td {...tdProps}>{bag.assigned}</td>
-              <td {...tdProps}>{bag.status}</td>
+              <td {...tdProps}>{bag.pickupStatus}</td>
               <td {...tdDel}>{<XIcon className='w-5 h-5 text-red-500' />}</td>
             </tr>
           )
         }}
       />
+
       {selectedBag && (
         <Modal open={true} close={() => setSelectedBag(undefined)}>
           <BagJudgeForm
@@ -93,6 +104,10 @@ export default function AdminBagsJudges({ bags = [], books = [] }) {
             bags={_bags}
             setBags={setBags}
             setSelectedBag={setSelectedBag}
+            filteredCategories={filteredCategories}
+            readers={readers}
+            pickupStatuses={pickupStatuses}
+            judgeAssignments={judgeAssignments}
           />
         </Modal>
       )}
