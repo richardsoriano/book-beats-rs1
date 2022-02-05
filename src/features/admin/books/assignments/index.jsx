@@ -3,6 +3,7 @@ import { uniq } from '@/modules/array'
 import Filters from './filters'
 import BookAssignmentResults from 'features/admin/books/assignments/results'
 import TextField from 'ui/text-field'
+
 const statuses = ['Any', 'Completed', 'In progress']
 
 export default function AdminBooksAssignments({ bookAssignments = [] }) {
@@ -25,7 +26,7 @@ export default function AdminBooksAssignments({ bookAssignments = [] }) {
 
   return (
     <div>
-      <h1 className='text-2xl font-bold'>Book Assignments</h1>
+      <h1 className='text-2xl font-bold'>Books</h1>
       <Filters
         setFilteredStatus={setFilteredStatus}
         filteredStatus={filteredStatus}
@@ -44,7 +45,9 @@ export default function AdminBooksAssignments({ bookAssignments = [] }) {
         statuses={statuses}
       />
       <div className='py-6'>
-        <h2 className='text-blue-400 text-4xl'>Add a Book</h2>
+        <h2 className='text-blue-400 text-4xl'>
+          Add a Book - <small>(TBD)</small>
+        </h2>
         <TextField
           label='Title'
           value={book.title}
