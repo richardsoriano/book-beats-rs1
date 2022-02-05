@@ -1,13 +1,12 @@
 import { useState } from 'react'
 import BookScoreResults from './bookScoreResults'
 import Filters from './bookScoreResults/filters'
+import BagJudgesResults from './bagJudgesResults'
 import categories from '@/data/categories'
 
-import Table from '@/ui/table'
 import Modal from '@/ui/modal'
 import Button from '@/ui/button'
 import BagJudgeForm from './form'
-import { XIcon } from '@heroicons/react/solid'
 
 const newBag = {
   _id: '',
@@ -49,7 +48,7 @@ export default function AdminBagsJudges({
     })
     setBags((prev) => prev.filter((_bag) => _bag._id !== bagToDelete._id))
   }
-  console.log('judges=', judgeAssignments)
+
   return (
     <>
       <h1 className='text-2xl font-bold'>Book Scores</h1>
@@ -64,36 +63,12 @@ export default function AdminBagsJudges({
       </div>
       <h1 className='text-2xl font-bold'>Bags for Judges</h1>
       <Button onClick={() => setSelectedBag(newBag)}>New Bag</Button>
-      <Table
-        columns={[
-          { heading: 'Name', sortable: 'name' },
-          { heading: 'Category', sortable: 'category' },
-          { heading: 'Books', sortable: 'books' },
-          { heading: 'Judges', sortable: 'judges' },
-          { heading: 'Status', sortable: 'status' },
-          { heading: 'Delete', sortable: false },
-        ]}
-        rows={_bags}
-        renderRow={(bag, i) => {
-          const tdProps = {
-            className: `${i % 2 !== 0 ? 'bg-blue-100' : ''} p-2`,
-            onClick: () => setSelectedBag(bag),
-          }
-          const tdDel = {
-            className: `${i % 2 !== 0 ? 'bg-blue-100' : ''} p-2`,
-            onClick: () => deleteBag(bag),
-          }
-          return (
-            <tr>
-              <td {...tdProps}>{bag.name}</td>
-              <td {...tdProps}>{bag.category}</td>
-              <td {...tdProps}>{bag.books.join(', ')}</td>
-              <td {...tdProps}>{bag.assigned}</td>
-              <td {...tdProps}>{bag.pickupStatus}</td>
-              <td {...tdDel}>{<XIcon className='w-5 h-5 text-red-500' />}</td>
-            </tr>
-          )
-        }}
+
+      <BagJudgesResults
+        bags={_bags}
+        filteredCategories={filteredCategories}
+        deleteBag={deleteBag}
+        setSelectedBag={selectedBag}
       />
 
       {selectedBag && (

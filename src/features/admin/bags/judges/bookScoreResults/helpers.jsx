@@ -23,6 +23,15 @@ function filterJudgesByCategories(judge, filteredCategories) {
     filteredCategories.includes(category)
   )
 }
+
+export function filterBags(bags = [], filteredCategories = []) {
+  return bags.filter((bag) => filterBagsByCategories(bag, filteredCategories))
+}
+function filterBagsByCategories(bag, filteredCategories) {
+  if (filteredCategories.length === 0) return true
+  return filteredCategories.includes(bag.category)
+}
+
 export function sort(books) {
   return books.sort((a, b) => {
     if (a.score > b.score) return -1

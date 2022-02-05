@@ -82,7 +82,7 @@ function aggregateBags(bags, readers) {
         books: bag.books,
         numBooks: bag.books.length,
         assigned: bag.assigned,
-        status: bag.status,
+        pickupStatus: bag.pickupStatus,
       },
     ]
   }, [])

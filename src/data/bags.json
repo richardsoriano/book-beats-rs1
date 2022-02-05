@@ -4,7 +4,7 @@
     "name": "F 101",
     "category": "First Book",
     "books": ["Dark Matters", "Colleen"],
-    "status": "needs pickup",
+    "pickupStatus": "needs pickup",
     "assigned": "Mark Martinez Tellez"
   },
   {
@@ -15,7 +15,7 @@
       "The Nighthawk’s Harmonica: A Montana Roundup"
     ],
     "category": "Childrens",
-    "status": "picked up",
+    "pickupStatus": "picked up",
     "assigned": "Mark Martinez Tellez"
   },
   {
@@ -23,7 +23,7 @@
     "name": "W 101",
     "books": ["The Nighthawk’s Harmonica: A Montana Roundup", "Winding Down"],
     "category": "Woman Writer",
-    "status": "needs pickup",
+    "pickupStatus": "needs pickup",
     "assigned": "Richard Soriano"
   },
   {
@@ -33,8 +33,8 @@
       "On a Good Horse",
       "The Nighthawk’s Harmonica: A Montana Roundup"
     ],
-    "category": "Indgenous Writer",
-    "status": "needs pickup",
+    "category": "Indegenous Writer",
+    "pickupStatus": "needs pickup",
     "assigned": "Holly Soriano"
   }
 ]
