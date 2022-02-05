@@ -2,7 +2,6 @@ import AdminBooksAssignments from '@/features/admin/books/assignments'
 import readers from '@/data/readers'
 
 export default function AdminBooksAssignmentsPage({ bookAssignments }) {
-  // return <div>bookassignments:{JSON.stringify(bookAssignments)}</div>
   return <AdminBooksAssignments bookAssignments={bookAssignments} />
 }
 

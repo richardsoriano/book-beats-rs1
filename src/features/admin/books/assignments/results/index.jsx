@@ -24,7 +24,6 @@ export default function BookAssignmentResults({
   useEffect((sortableColumn) => {
     if (!sortableColumn) return
   }, [])
-  console.log('book', bookAssignments)
 
   function sort(assignments) {
     if (!sortableColumn) return assignments

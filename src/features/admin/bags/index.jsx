@@ -44,7 +44,8 @@ export default function AdminBags({ bags, books, readerAssignments }) {
     (readerAssignment) => readerAssignment.reader
   )
   return (
-    <>
+    <div>
+      <h1 className='text-2xl font-bold'>Bags</h1>
       <Button onClick={() => setSelectedBag(newBag)}>New Bag</Button>
       <Table
         columns={[
@@ -104,6 +105,6 @@ export default function AdminBags({ bags, books, readerAssignments }) {
           <Button onClick={() => setBagToDelete(undefined)}>No</Button>
         </Modal>
       )}
-    </>
+    </div>
   )
 }
