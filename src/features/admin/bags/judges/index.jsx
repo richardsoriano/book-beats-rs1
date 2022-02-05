@@ -1,26 +1,33 @@
 import { useState } from 'react'
 import BookScoreResults from './bookScoreResults'
 import Filters from './bookScoreResults/filters'
+import BagJudgesResults from './bagJudgesResults'
 import categories from '@/data/categories'
 
-import Table from '@/ui/table'
 import Modal from '@/ui/modal'
 import Button from '@/ui/button'
 import BagJudgeForm from './form'
-import { XIcon } from '@heroicons/react/solid'
 
 const newBag = {
   _id: '',
   name: '',
   category: undefined,
   books: [],
+  assigned: [],
+  pickupStatus: '',
 }
 
-export default function AdminBagsJudges({ bags = [], books = [] }) {
+export default function AdminBagsJudges({
+  bags = [],
+  books = [],
+  readers = [],
+  judgeAssignments = [],
+}) {
   const [_bags, setBags] = useState(bags)
   const [selectedBag, setSelectedBag] = useState(undefined)
   const [bagToDelete, setBagToDelete] = useState(undefined)
   const [filteredCategories, setFilteredCategories] = useState([])
+  const pickupStatuses = ['needs pickup', 'picked up', 'returned']
 
   function deleteBag(bag) {
     setBagToDelete(bag)
@@ -32,6 +39,8 @@ export default function AdminBagsJudges({ bags = [], books = [] }) {
       name: '',
       category: undefined,
       books: [],
+      assigned: [],
+      pickupStatus: '',
     }
     const res = await fetch(`/api/bags/${bagToDelete._id}`, {
       method: 'DELETE',
@@ -54,37 +63,14 @@ export default function AdminBagsJudges({ bags = [], books = [] }) {
       </div>
       <h1 className='text-2xl font-bold'>Bags for Judges</h1>
       <Button onClick={() => setSelectedBag(newBag)}>New Bag</Button>
-      <Table
-        columns={[
-          { heading: 'Name', sortable: 'name' },
-          { heading: 'Category', sortable: 'category' },
-          { heading: 'Books', sortable: 'books' },
-          { heading: 'Judges', sortable: 'judges' },
-          { heading: 'Status', sortable: 'status' },
-          { heading: 'Delete', sortable: false },
-        ]}
-        rows={_bags}
-        renderRow={(bag, i) => {
-          const tdProps = {
-            className: `${i % 2 !== 0 ? 'bg-blue-100' : ''} p-2`,
-            onClick: () => setSelectedBag(bag),
-          }
-          const tdDel = {
-            className: `${i % 2 !== 0 ? 'bg-blue-100' : ''} p-2`,
-            onClick: () => deleteBag(bag),
-          }
-          return (
-            <tr>
-              <td {...tdProps}>{bag.name}</td>
-              <td {...tdProps}>{bag.category}</td>
-              <td {...tdProps}>{bag.books.join(', ')}</td>
-              <td {...tdProps}>{bag.assigned}</td>
-              <td {...tdProps}>{bag.status}</td>
-              <td {...tdDel}>{<XIcon className='w-5 h-5 text-red-500' />}</td>
-            </tr>
-          )
-        }}
+
+      <BagJudgesResults
+        bags={_bags}
+        filteredCategories={filteredCategories}
+        deleteBag={deleteBag}
+        setSelectedBag={selectedBag}
       />
+
       {selectedBag && (
         <Modal open={true} close={() => setSelectedBag(undefined)}>
           <BagJudgeForm
@@ -93,6 +79,10 @@ export default function AdminBagsJudges({ bags = [], books = [] }) {
             bags={_bags}
             setBags={setBags}
             setSelectedBag={setSelectedBag}
+            filteredCategories={filteredCategories}
+            readers={readers}
+            pickupStatuses={pickupStatuses}
+            judgeAssignments={judgeAssignments}
           />
         </Modal>
       )}

@@ -3,10 +3,15 @@ import AdminBagsJudges from '@/features/admin/bags/judges'
 import readers from '@/data/readers'
 import bags from '@/data/bags'
 
-export default function AdminBagsJudgesPage({ bags, books }) {
-  // return
-
-  return <AdminBagsJudges books={books} bags={bags} />
+export default function AdminBagsJudgesPage({ bags, books, judgeAssignments }) {
+  return (
+    <AdminBagsJudges
+      books={books}
+      bags={bags}
+      judgeAssignments={judgeAssignments}
+      readers={readers}
+    />
+  )
 }
 
 function aggregateBookAssignments(readers) {
@@ -42,18 +47,10 @@ function aggregateBookAssignments(readers) {
         }, [])
     )
 
-    console.log('scores', scores)
-    const scoresAvg =
+    const scoresAvg = (
       scores.reduce((acc, score) => acc + score, 0) / scores.length
+    ).toFixed(2)
 
-    console.log('scores Average', scoresAvg)
-    // const scoresTotal =
-    //   book.review.creativity +
-    //   book.review.topic +
-    //   book.review.writing +
-    //   book.review.structure +
-    //   book.review.readingExperience
-    // console.log('scores', scoresTotal)
     return [
       ...acc,
       {
@@ -85,10 +82,30 @@ function aggregateBags(bags, readers) {
         books: bag.books,
         numBooks: bag.books.length,
         assigned: bag.assigned,
-        status: bag.status,
+        pickupStatus: bag.pickupStatus,
       },
     ]
   }, [])
+}
+
+function aggregateJudgeAssignments(assignments) {
+  const assignmentsJudges = assignments.map((assignment) => ({
+    judge: assignment.name,
+    role: assignment.role,
+    preferences: assignment.preferences,
+    max: assignment.preferences.maxNumberOfBooks,
+    assignedCount: assignment.assignments.length,
+    completedCount: assignment.assignments.filter(
+      (assignment) => assignment.reviewedOn !== null
+    ).length,
+    availableCount:
+      assignment.preferences.maxNumberOfBooks - assignment.assignments.length,
+    categories: assignment.preferences.categories,
+  }))
+
+  return assignmentsJudges.filter((assignmentJudge) =>
+    assignmentJudge.role.includes('judge')
+  )
 }
 
 export async function getServerSideProps(ctx) {
@@ -99,8 +116,8 @@ export async function getServerSideProps(ctx) {
   return {
     props: {
       bags: aggregateBags(bags, readers),
-      // bags,
       books: aggregateBookAssignments(readers),
+      judgeAssignments: aggregateJudgeAssignments(readers),
     },
   }
 }

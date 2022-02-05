@@ -1,4 +1,4 @@
-import MultiSelectField from '@/ui/multi-select-field'
+import SelectField from '@/ui/select-field'
 
 export default function Filters({
   setFilteredCategories,
@@ -22,10 +22,10 @@ export default function Filters({
 
       <div className='w-full flex items-center space-x-10'>
         <div className='w-64'>
-          <MultiSelectField
-            label='Filter by any matching categories'
-            value={filteredCategories}
+          <SelectField
+            label='Filter by category'
             options={categories}
+            value={filteredCategories}
             onChange={(categories) => setFilteredCategories(categories)}
           />
         </div>

@@ -39,8 +39,7 @@ export default function AdminBags({ bags, books, readerAssignments }) {
     })
     setBags((prev) => prev.filter((_bag) => _bag._id !== bagToDelete._id))
   }
-  console.log('reader assignments:', readerAssignments)
-  console.log('bags', bags)
+
   const readers = readerAssignments.map(
     (readerAssignment) => readerAssignment.reader
   )

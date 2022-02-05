@@ -1,17 +1,41 @@
-export function filter(books, filteredCategories) {
-  console.log('filter books', books)
-  console.log('filtered', filteredCategories)
-  const booksFiltered = books.filter((book) =>
-    filterByCategories(book, filteredCategories)
+export function filter(books = [], filteredCategories = []) {
+  return books.filter((book) =>
+    filterBooksByCategories(book, filteredCategories)
   )
-  return booksFiltered
-  // return books.filter((book) => filterByCategories(book, filteredCategories))
 }
 
-function filterByCategories(book, filteredCategories) {
-  console.log('filtered categories', filteredCategories)
+function filterBooksByCategories(book, filteredCategories) {
   if (filteredCategories.length === 0) return true
   return book.categories.some((category) =>
     filteredCategories.includes(category)
   )
+}
+
+export function filterJudges(judges = [], filteredCategories = []) {
+  return judges.filter((judge) =>
+    filterJudgesByCategories(judge, filteredCategories)
+  )
+}
+
+function filterJudgesByCategories(judge, filteredCategories) {
+  if (filteredCategories.length === 0) return true
+  return judge.preferences.categories.some((category) =>
+    filteredCategories.includes(category)
+  )
+}
+
+export function filterBags(bags = [], filteredCategories = []) {
+  return bags.filter((bag) => filterBagsByCategories(bag, filteredCategories))
+}
+function filterBagsByCategories(bag, filteredCategories) {
+  if (filteredCategories.length === 0) return true
+  return filteredCategories.includes(bag.category)
+}
+
+export function sort(books) {
+  return books.sort((a, b) => {
+    if (a.score > b.score) return -1
+    if (a.score < b.score) return 1
+    return 0
+  })
 }

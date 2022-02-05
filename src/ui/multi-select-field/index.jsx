@@ -13,7 +13,7 @@ export default function MultiSelectField({
 
   const ref = useRef()
   useClickOutside(ref, () => setOpen(false))
-  console.dir('value=', value)
+
   return (
     <div className='relative w-full' ref={ref}>
       {label && (

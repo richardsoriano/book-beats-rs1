@@ -28,6 +28,8 @@ export default function BagPage({ books }) {
     name: '',
     books: [],
     category: undefined,
+    status: '',
+    assigned: '',
   })
   const steps = {
     start: {
@@ -133,12 +135,12 @@ export default function BagPage({ books }) {
     </div>
   )
 }
-const bag = {
-  name: '',
-  books: [],
-  category: undefined,
-  reader: undefined,
-}
+// const bag = {
+//   name: '',
+//   books: [],
+//   category: undefined,
+//   reader: undefined,
+// }
 
 export function getServerSideProps(req) {
   return {
